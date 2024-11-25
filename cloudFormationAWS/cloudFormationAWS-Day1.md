@@ -1,19 +1,16 @@
-Here’s a more **detailed and comprehensive guide** for your repository, explaining CloudFormation anatomy, including **DeletionPolicy**, **Outputs**, and other key concepts, tailored for **Beginner**, **Intermediate**, and **Advanced** levels. 
+Here’s a more **detailed and comprehensive guide** for repository, explaining CloudFormation anatomy, including **DeletionPolicy**, **Outputs**, and other key concepts, tailored for **Beginner**, **Intermediate**, and **Advanced** levels. 
 
 ---
 
-### **README for Beginner Level**
-
-```markdown
-# AWS CloudFormation: Beginner Level
+## AWS CloudFormation: Beginner Level
 
 Welcome to the beginner level of AWS CloudFormation learning! This guide introduces you to the fundamentals of Infrastructure as Code (IaC) and walks you through deploying basic AWS resources step-by-step.
 
 ---
 
-## 📚 Learning Objectives
+### 📚 Learning Objectives
 
-### **1. Understand the Anatomy of a CloudFormation Template**
+#### **1. Understand the Anatomy of a CloudFormation Template**
 AWS CloudFormation templates are structured files used to describe the resources and their relationships in a stack.
 
 - **AWS Documentation**:  
@@ -26,7 +23,7 @@ AWS CloudFormation templates are structured files used to describe the resources
 
 ---
 
-### **2. Learn to Create, Deploy, and Delete Stacks**
+#### **2. Learn to Create, Deploy, and Delete Stacks**
 The lifecycle of a stack includes creating, updating, and deleting it using CloudFormation.
 
 - **AWS Documentation**:
@@ -43,7 +40,7 @@ The lifecycle of a stack includes creating, updating, and deleting it using Clou
 
 ---
 
-### **3. Use the `DeletionPolicy` Attribute to Retain Resources After Stack Deletion**
+#### **3. Use the `DeletionPolicy` Attribute to Retain Resources After Stack Deletion**
 The `DeletionPolicy` attribute determines what happens to a resource when its stack is deleted.
 
 - **AWS Documentation**:  
@@ -64,7 +61,7 @@ The `DeletionPolicy` attribute determines what happens to a resource when its st
 
 ---
 
-### **4. Start Using `Outputs` to Reference Resources**
+#### **4. Start Using `Outputs` to Reference Resources**
 Outputs are used to display resource details after stack creation or to share values with other stacks.
 
 - **AWS Documentation**:  
@@ -105,6 +102,117 @@ A CloudFormation template typically consists of the following sections:
    ```yaml
    AWSTemplateFormatVersion: '2010-09-09'
    ```
+
+---
+
+Let me know if you need further modifications!Here is the content you provided without the box formatting:
+
+---
+
+## AWS CloudFormation: Beginner Level
+
+Welcome to the beginner level of AWS CloudFormation learning! This guide introduces you to the fundamentals of Infrastructure as Code (IaC) and walks you through deploying basic AWS resources step-by-step.
+
+---
+
+### 📚 Learning Objectives
+
+#### **1. Understand the Anatomy of a CloudFormation Template**
+AWS CloudFormation templates are structured files used to describe the resources and their relationships in a stack.
+
+- **AWS Documentation**:  
+  [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)  
+  This section explains all key components, including **Parameters**, **Resources**, **Outputs**, and optional sections like **Conditions** and **Metadata**.
+
+- **Key Highlights**:
+  - Required: `Resources`
+  - Optional: `AWSTemplateFormatVersion`, `Description`, `Metadata`, `Parameters`, `Mappings`, `Conditions`, `Outputs`
+
+---
+
+#### **2. Learn to Create, Deploy, and Delete Stacks**
+The lifecycle of a stack includes creating, updating, and deleting it using CloudFormation.
+
+- **AWS Documentation**:
+  - [Creating a Stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html)
+  - [Updating a Stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html)
+  - [Deleting a Stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html)
+
+- **Key Highlights**:
+  - Stacks can be created via the AWS Management Console, AWS CLI, or SDKs.
+  - Validate templates before deployment:
+    ```bash
+    aws cloudformation validate-template --template-body file://template.yaml
+    ```
+
+---
+
+#### **3. Use the `DeletionPolicy` Attribute to Retain Resources After Stack Deletion**
+The `DeletionPolicy` attribute determines what happens to a resource when its stack is deleted.
+
+- **AWS Documentation**:  
+  [DeletionPolicy Attribute](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html)
+
+- **Key Highlights**:
+  - Available options:
+    - `Retain`: Keeps the resource after the stack is deleted.
+    - `Snapshot`: Creates a snapshot of the resource (supported by specific services like RDS and EC2 volumes).
+    - `Delete` (default): Deletes the resource when the stack is deleted.
+  - Example Usage:
+    ```yaml
+    Resources:
+      MyS3Bucket:
+        Type: AWS::S3::Bucket
+        DeletionPolicy: Retain
+    ```
+
+---
+
+#### **4. Start Using `Outputs` to Reference Resources**
+Outputs are used to display resource details after stack creation or to share values with other stacks.
+
+- **AWS Documentation**:  
+  [Outputs Section](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html)
+
+- **Key Highlights**:
+  - Outputs can include values such as resource IDs, URLs, or other critical information.
+  - Useful for cross-stack references with the `Export` keyword.
+  - Example:
+    ```yaml
+    Outputs:
+      InstanceID:
+        Description: "ID of the EC2 instance"
+        Value: !Ref MyEC2Instance
+        Export:
+          Name: MyEC2InstanceID
+    ```
+  - Retrieve Outputs using:
+    ```bash
+    aws cloudformation describe-stacks --stack-name StackName
+    ```
+
+---
+
+### **Additional AWS Resources**
+- **CloudFormation Best Practices**:  
+  [AWS CloudFormation Best Practices](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+
+- **Template Reference**:  
+  [AWS CloudFormation Template Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-reference.html)
+
+---
+
+## 🧩 CloudFormation Template Anatomy
+### **1. Basic Components**
+A CloudFormation template typically consists of the following sections:
+1. **AWSTemplateFormatVersion** (Optional): Specifies the template version.
+   ```yaml
+   AWSTemplateFormatVersion: '2010-09-09'
+   ```
+
+---
+
+Let me know if you need further modifications!
 2. **Description** (Optional): Provides a description of the template.
    ```yaml
    Description: "A simple template to create an S3 bucket"
