@@ -105,7 +105,7 @@ Resources:
       VpcId: !Ref MyVPC
       CidrBlock: 11.0.2.0/24
       MapPublicIpOnLaunch: true
-      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      AvailabilityZone: !Select [ 0, !GetAZs 'ap-southeast-1' ]
       Tags:
         - Key: Name
           Value: PublicSubnet
@@ -117,7 +117,7 @@ Resources:
       VpcId: !Ref MyVPC
       CidrBlock: 11.0.1.0/24
       MapPublicIpOnLaunch: false
-      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      AvailabilityZone: !Select [ 0, !GetAZs 'ap-southeast-1' ]
       Tags:
         - Key: Name
           Value: PrivateSubnet
@@ -235,6 +235,62 @@ Resources:
       Tags:
         - Key: Name
           Value: PrivateInstance
+
+Outputs:
+  # VPC Output
+  VPCId:
+    Description: "VPC ID"
+    Value: !Ref MyVPC
+
+  # Public Subnet Output
+  PublicSubnetId:
+    Description: "Public Subnet ID"
+    Value: !Ref PublicSubnet
+
+  # Private Subnet Output
+  PrivateSubnetId:
+    Description: "Private Subnet ID"
+    Value: !Ref PrivateSubnet
+
+  # Internet Gateway Output
+  InternetGatewayId:
+    Description: "Internet Gateway ID"
+    Value: !Ref InternetGateway
+
+  # NAT Gateway Output
+  NatGatewayId:
+    Description: "NAT Gateway ID"
+    Value: !Ref NatGateway
+
+  # Elastic IP Output
+  NatElasticIp:
+    Description: "Elastic IP Address for NAT Gateway"
+    Value: !Ref NatElasticIP
+
+  # Public Route Table Output
+  PublicRouteTableId:
+    Description: "Public Route Table ID"
+    Value: !Ref PublicRouteTable
+
+  # Private Route Table Output
+  PrivateRouteTableId:
+    Description: "Private Route Table ID"
+    Value: !Ref PrivateRouteTable
+
+  # EC2 Public Instance Output
+  PublicInstanceId:
+    Description: "Public EC2 Instance ID"
+    Value: !Ref PublicInstance
+
+  # EC2 Private Instance Output
+  PrivateInstanceId:
+    Description: "Private EC2 Instance ID"
+    Value: !Ref PrivateInstance
+
+  # Security Group Output
+  Ec2SecurityGroupId:
+    Description: "Security Group ID"
+    Value: !Ref Ec2SecurityGroup
 ```
 
 ---
@@ -260,7 +316,13 @@ aws cloudformation create-stack \
 - Navigate to the **AWS Management Console**.
 - Go to **VPC**, **Subnets**, **EC2 Instances**, and **Security Groups** to verify the resources.
 
-### 4. Delete the Stack (Optional)
+### 4. How to Access Outputs:
+
+```bash
+aws cloudformation describe-stacks --stack-name MyVPCProject --query "Stacks[0].Outputs"
+```
+
+### 5. Delete the Stack (Optional)
 If you no longer need the stack, delete it:
 ```bash
 aws cloudformation delete-stack --stack-name MyVPCProject --region ap-southeast-1
@@ -573,3 +635,5 @@ PrivateInstance:
 ```
 
 - **SubnetId**: Specifies the private subnet (`PrivateSubnet`) for the private instance.
+
+Happy learning and experimenting! 🎉
