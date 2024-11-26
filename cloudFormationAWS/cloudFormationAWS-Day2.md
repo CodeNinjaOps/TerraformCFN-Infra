@@ -573,5 +573,3 @@ PrivateInstance:
 ```
 
 - **SubnetId**: Specifies the private subnet (`PrivateSubnet`) for the private instance.
-
----
